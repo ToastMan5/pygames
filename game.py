@@ -19,7 +19,10 @@ class Player:
 
 mario = Player(10,1,0)
 
-run = True
+print(f"{1 + 1 = }  ")
+
+
+run = False
 while run: #  GAME LOOP
     screen.fill((0,0,0))
 
