@@ -10,7 +10,6 @@ SCREEN_HEIGHT = 1200
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 rectangleThing = pygame.Rect((300, 250, 50, 50)) # x coord, y coord, width, height
-
 class Player:
     def __init__(self, health: int, lvl: int, xp: float):
         self.health = health
