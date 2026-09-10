@@ -8,9 +8,9 @@ def tokenize(expression):
         if expression[i] in tokens["digit"]:  # if char at index I is a digit -->
             print(f"{expression[i]} is in group 'digit'")
             number = expression[i]  # declare number string variable as that digit
-            if i != len(expression):
+            if i < len(expression):
                 j = i + 1
-                while expression[j] in tokens["digit"]:
+                while expression[j] in tokens["digit"] and j != len(expression):
                     number = number + expression[j]
                     j += 1
                 number = int(number)
