@@ -5,9 +5,19 @@ class Player: #player class for storing coordinates
         self.x = x
         self.y = y
     def move(self, direction: str, amount: int):
+        """
+        :param direction: ("up"/"down"/"left"/"right")
+        :param amount: any integer value to move the object by
+        :return: object with modified x/y values depending on it's direction and amount to move
+        :Example:
+        >>> player = Player(50,50)
+        >>> player.move('up', 5)
+        player.x = 50
+        player.y = 55
+        """
+
         match direction:
             case "up":
-                print("up")
                 if self.y - amount > 2 * screen.get_height()/65: # prevents ball from going past the edge
                     self.y -= amount #moves the player
             case "down":
