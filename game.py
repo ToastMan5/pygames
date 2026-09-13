@@ -1,51 +1,56 @@
 import pygame
 
+class Player: #player class for storing coordinates
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def move(self, direction: str, amount: int):
+        match direction:
+            case "up":
+                print("up")
+                if self.y - amount > 2 * screen.get_height()/65: # prevents ball from going past the edge
+                    self.y -= amount #moves the player
+            case "down":
+                if self.y + amount < screen.get_height()/1.032:
+                    self.y += amount
+            case "left":
+                if self.x - amount > 2 * screen.get_width()/65:
+                    self.x -= amount
+            case "right":
+                if self.x + amount < screen.get_width()/1.032:
+                    self.x += amount
 
 pygame.init() #initialises pygame
-screen = pygame.display.set_mode((900, 900))
-running = True
-clock = pygame.time.Clock()
+screen = pygame.display.set_mode((1200, 1200)) #sets the screen to be 900x900px, code should adapt to different resolutions
+running = True # initialises the game to start
+clock = pygame.time.Clock() #creates a time object
 dt=0
-
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+player = Player((screen.get_width()/2), (screen.get_height()/2))
 box = (screen.get_width()/3.3,screen.get_height()/1.25,400,40)
+rect1 = pygame.Rect(box)
 while running:
 
-    screen.fill("grey") #fill white/clear others
-    pygame.draw.circle(screen, "red", player_pos, 40)
+    screen.fill("grey") #fill grey/clear others
+    pygame.draw.circle(screen, "red", (player.x, player.y), 40) 
     pygame.draw.rect(screen, "black", box)
-
+    #rect1 = pygame.Rect.inflate(2,2)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT: #user pressed the x button
-            running = False
+            running = False #stop the game loop
 
-    keys = pygame.key.get_pressed()
+    keys = pygame.key.get_pressed() #gets an object containing all keys and whether they are pressed or not (True / False)
     if keys[pygame.K_w]:
-        if player_pos.y - 5 < pygame.Vector2(screen.get_width(), screen.get_height())[1] * 0.04:
-            pass
-        else:
-            player_pos.y -= 5
+        player.move("up", 5)
     if keys[pygame.K_s]:
-        if player_pos.y + 5 > pygame.Vector2(screen.get_width(), screen.get_height())[1] * 0.935:
-            pass
-        else:
-            player_pos.y += 5
+        player.move("down", 5)
     if keys[pygame.K_a]:
-        if player_pos.x - 5 < pygame.Vector2(screen.get_width(), screen.get_height())[0] * 0.05:
-            pass
-        else:
-            player_pos.x -= 5
+        player.move("left", 5)
     if keys[pygame.K_d]:
-        if player_pos.x + 5 > pygame.Vector2(screen.get_width(), screen.get_height())[0] * 0.95:
-            pass
-        else:
-            player_pos.x += 5
-    pygame.display.flip() # flip() the display to put your work on screen
+        player.move("right", 5)
+    pygame.display.flip() # updates the screen
 
-    dt = clock.tick(60) / 1000
-    print(f"X{player_pos.y=}")
-    print(f"y{player_pos.x=}")
-
+    dt = clock.tick(60) / 1000 #prevents visual tearing/sets an FPS limit to 60 - this game loop only executes 60 times a second
+    print(f"{player.x=}, {player.y=}") # debugging
 
 pygame.quit()
