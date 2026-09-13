@@ -8,12 +8,18 @@ def tokenize(expression):
         if expression[i] in tokens["digit"]:  # if char at index I is a digit -->
             print(f"{expression[i]} is in group 'digit'")
             number = expression[i]  # declare number string variable as that digit
-            if i < len(expression):
-                j = i + 1
-                while expression[j] in tokens["digit"] and j != len(expression):
-                    number = number + expression[j]
-                    j += 1
-                number = int(number)
+            if expression[i-1] is not in tokens["digit"] and expression[i+1] in tokens["digit"]: #if character before is not a digit, and the character after is a digit, then that means this is the start of a two/more digit number
+                pass
+            if expression[i-1] in tokens["digit"] and expression[i+1] in tokens["digit"]: #if digit before and after is digit, then it's in between first and last digit of a number
+                pass
+            if expression[i] in tokens["digit"]
+
+
+
+
+
+                number = number + expression[j]
+            number = int(number)
             expression_list.append([number, "digit"])
 
         if expression[i] in tokens["operator"]:
@@ -23,6 +29,7 @@ def tokenize(expression):
             expression_list.append([expression[i], "punctuator"])
             print(f"{expression[i]} is in group 'punctuator'")
     return expression_list
+
 
 
 tokens = {
