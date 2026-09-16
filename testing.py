@@ -3,25 +3,38 @@ from string import digits
 
 
 def tokenize(expression):
+    global number
+    number = 0
     expression_list = []
     for i in range(len(expression)):
         if expression[i] in tokens["digit"]:  # if char at index I is a digit -->
             print(f"{expression[i]} is in group 'digit'")
-            number = expression[i]  # declare number string variable as that digit
-            if expression[i-1] is not in tokens["digit"] and expression[i+1] in tokens["digit"]: #if character before is not a digit, and the character after is a digit, then that means this is the start of a two/more digit number
-                pass
-            if expression[i-1] in tokens["digit"] and expression[i+1] in tokens["digit"]: #if digit before and after is digit, then it's in between first and last digit of a number
-                pass
-            if expression[i] in tokens["digit"]
+            if i == 0 or i == len(expression)-1: #possible out of range error
+                if i == 0 and expression[i+1] not in tokens["digit"]: #one digit number (at start of string)
+                    number = expression[i]  # declare number string variable as that digit
+                    expression_list.append([int(number), "digit"])
+                if i == 0 and expression[i+1] in tokens["digit"]: #start of multi digit number (start of string)
+                    number = expression[i]
+                if i == len(expression)-1: # end of a number / single number at (end of string)
+                    if expression[i-1] not in tokens["digit"]: #single number (at end of string)
+                        number = expression[i]  # declare number string variable as that digit
+                        expression_list.append([int(number), "digit"])
+                    if expression[i-1] in tokens["digit"]: #end of multi digit number (at end of string)
+                        number += expression[i]
+                        expression_list.append([int(number), "digit"])
+
+
+            elif expression[i-1] not in tokens["digit"] and expression[i+1] in tokens["digit"]: #if character before is not a digit, and the character after is a digit, then that means this is the start of a two/more digit number
+                number = expression[i]  # declare number string variable as that digit
+            elif expression[i-1] in tokens["digit"] and expression[i+1] in tokens["digit"]: #if digit before and after is digit, then it's in between first and last digit of a number
+                    number += expression[i]
+            elif expression[i-1] not in tokens["digit"] and expression[i+1] not in tokens["digit"]: #one digit number
+                number = expression[i]  # declare number string variable as that digit
+                expression_list.append([int(number), "digit"])
 
 
 
-
-
-                number = number + expression[j]
-            number = int(number)
             expression_list.append([number, "digit"])
-
         if expression[i] in tokens["operator"]:
             print(f"{expression[i]} is in group 'operator'")
             expression_list.append([expression[i], "operator"])
