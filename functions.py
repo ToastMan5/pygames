@@ -2,7 +2,14 @@ import string
 from string import digits
 
 
-def tokenize(expression):
+def tokenize(expression: str)-> list:
+    """
+
+    :param expression:
+    :returns: a 2d array containing arrays of tokens followed by their token type
+
+
+    """
     global number
     number = 0
     expression_list = []
@@ -48,11 +55,17 @@ def tokenize(expression):
             expression_list.append([expression[i], "punctuator"])
             #print(f"{expression[i]} is in group 'punctuator', {i=}")
     return expression_list
-
-
 tokens = {
     "digit": string.digits,
     "operator": "*+-/",
     "punctuator": "()",
     "terminator": " ,"
 }
+
+def table2dlist(array, title1, title2):
+    print("-"*20)
+    print(f"{title1}    | {title2}")
+    for row in array:
+        a = row[0]
+        b = row[1]
+        print(f"{a:<8} | {b}")
