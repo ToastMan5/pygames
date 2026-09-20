@@ -4,11 +4,8 @@ from string import digits
 
 def tokenize(expression: str)-> list:
     """
-
     :param expression:
     :returns: a 2d array containing arrays of tokens followed by their token type
-
-
     """
     global number
     number = 0
@@ -20,7 +17,7 @@ def tokenize(expression: str)-> list:
                 if i == 0 and expression[i+1] in tokens["terminator"]: #one digit number (at start of string)
                     number = expression[i]  # declare number string variable as that digit
                     #print("start of string")
-                    expression_list.append([int(number), "digit"])
+                    expression_list.append([int(number), "number"])
                 if i == 0 and expression[i+1] in tokens["digit"]: #start of multi digit number (start of string)
                     number = expression[i]
                     #print("start of string")
@@ -28,11 +25,11 @@ def tokenize(expression: str)-> list:
                     if expression[i-1] in tokens["terminator"]: #single number (at end of string)
                         number = expression[i]  # declare number string variable as that digit
                         #print("end of string")
-                        expression_list.append([int(number), "digit"])
+                        expression_list.append([int(number), "number"])
                     if expression[i-1] in tokens["digit"]: #end of multi digit number (at end of string)
                         number += expression[i]
                         #print("end of string")
-                        expression_list.append([int(number), "digit"])
+                        expression_list.append([int(number), "number"])
             elif expression[i-1] in tokens["terminator"] and expression[i+1] in tokens["digit"]: #if character before is not a digit, and the character after is a digit, then that means this is the start of a two/more digit number
                 #print(f"{number=}, {i=}, start of multi")
                 number = expression[i]  # declare number string variable as that digit
@@ -43,11 +40,11 @@ def tokenize(expression: str)-> list:
                 #print(f"{number=}, {i=}, between multi")
             elif expression[i-1] in tokens["digit"] and expression[i+1] in tokens["terminator"]: #end of a multi
                 number += expression[i]
-                expression_list.append([int(number), "digit"])
+                expression_list.append([int(number), "number"])
             elif expression[i-1] in tokens["terminator"] and expression[i+1] in tokens["terminator"]: #one digit number
                 number = expression[i]  # declare number string variable as that digit
                 #print(f"{number=}, {i=}, one digit")
-                expression_list.append([int(number), "digit"])
+                expression_list.append([int(number), "number"])
         if expression[i] in tokens["operator"]:
             #print(f"{expression[i]} is in group 'operator', {i=}")
             expression_list.append([expression[i], "operator"])
