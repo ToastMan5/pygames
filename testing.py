@@ -1,5 +1,3 @@
-import string
-from platform import ios_ver
 from string import digits
 from functions import *
 
@@ -15,8 +13,8 @@ def interpret_math(tokenes: list[list[str]]):
         if i < len(tokenes):
             if tokenes[i][1] == "operator":
                 operators += 1
-                left = int(tokenes[i-1][0])
-                right = int(tokenes[i+1][0])
+                left = float(tokenes[i-1][0])
+                right = float(tokenes[i+1][0])
                 match tokenes[i][0]:
                     case "*":
                         tokenes[i][0] = left * right
@@ -49,7 +47,8 @@ def interpret_math(tokenes: list[list[str]]):
         return interpret_math(tokenes)
 
 
-string1 = "11 + 1 + 2 * 44 + 222"
+#string1 = "11 + 1 + 2 * 44 + 222"
+string1 = input("Enter string")
 print(string1)
 table2dlist(tokenize(string1), "TOKEN", "TYPE")
 print(interpret_math(tokenize(string1)))
