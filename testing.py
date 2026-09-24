@@ -48,7 +48,7 @@ def interpret_math(tokenes: list[list[str]]):
 
 
 #string1 = "11 + 1 + 2 * 44 + 222"
-string1 = input("Enter string")
+string1 = input("Enter string: ")
 print(string1)
 table2dlist(tokenize(string1), "TOKEN", "TYPE")
 print(interpret_math(tokenize(string1)))
