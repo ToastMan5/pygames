@@ -1,7 +1,15 @@
-def show_array(array):
-    print("           ")
-    for i in range():
-        print(row)
+def show_array_general(array):
+    for i in range(len(array)):
+        print(array[i])
+
+def show_array_fancy(array, item_len):
+    top_str = ""
+    for i in range(len(array[0])):
+        top_str += f"    {i+1}" + " "*(item_len-1)
+    print(top_str)
+    for i in range(len(array)):
+        print(f"{i+1} {array[i]}")
+
 
 
 def make_array(rows,collumns,fill):
@@ -62,7 +70,7 @@ while option !=  5:
             print(f"Removal of car with {registration = } - success!")
         else: print(f"Removal of car with {registration = } - failiure!")
     if option == 4:
-        show_array(park)
+        show_array_fancy(park,5)
     if option == 5:
         option = 5
 
