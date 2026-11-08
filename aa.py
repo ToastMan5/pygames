@@ -10,8 +10,6 @@ def show_array_fancy(array, item_len):
     for i in range(len(array)):
         print(f"{i+1} {array[i]}")
 
-
-
 def make_array(rows,collumns,fill):
     array = []
     for i in range(rows):
@@ -27,7 +25,6 @@ def fill_array(array,fill):
             array[i][j] = fill
     return array
 
-
 def parse_position(string,selector):
     for i in range(len(string)):
         if string[i] == ",":
@@ -35,6 +32,15 @@ def parse_position(string,selector):
                 return int(string[:i])
             elif selector == 1:
                 return int(string[i+1:])
+
+def format_parking(num):
+    if len(num) == 5:
+        return num
+    else:
+        if len(num) < 5:
+            return num + " "*(5-len(num))
+        elif len(num) > 5:
+            return num[0:5]
 
 park = make_array(6,10,"")
 #show_array(park)
@@ -51,6 +57,7 @@ while option !=  5:
         fill_array(park, "empty")
     if option == 2:
         registration = input("Enter your car registration number: ")
+        registration = format_parking(registration)
         position_input = input("Enter row/collumn of place where you want to park your car (eg. \"1,5\"): ")
         position_row = parse_position(position_input,0)-1
         position_collumn = parse_position(position_input,1)-1
