@@ -3,12 +3,15 @@ from functions import *
 
 def interpret_math(tokenes: list[list[str]]):
     multiplicatives = 0
+    exponents = 0
     operators = 0
     print(tokenes)
     print(operators)
     for j in range(len(tokenes)):  # check how many multiplicatives there are
         if tokenes[j][0] == "*" or tokenes[j][0] == "/":
             multiplicatives  += 1
+        if tokenes[j][0] == "^":
+            exponents += 1
     for i in range(len(tokenes)):
         if i < len(tokenes):
             if tokenes[i][1] == "operator":
@@ -16,14 +19,22 @@ def interpret_math(tokenes: list[list[str]]):
                 left = float(tokenes[i-1][0])
                 right = float(tokenes[i+1][0])
                 match tokenes[i][0]:
+                    case "^":
+                        tokenes[i][0] = format(left ** right, "f")
+                        tokenes[i][1] = "number"
+                        tokenes.pop(i-1), tokenes.pop(i)
                     case "*":
-                        tokenes[i][0] = left * right
-                        tokenes[i][1] = "number"
-                        tokenes.pop(i-1), tokenes.pop(i)
+                        if exponents == 0: #########
+                            tokenes[i][0] = left * right
+                            tokenes[i][1] = "number"
+                            tokenes.pop(i-1), tokenes.pop(i)
+                        else: i += 1
                     case "/":
-                        tokenes[i][0] = left / right
-                        tokenes[i][1] = "number"
-                        tokenes.pop(i-1), tokenes.pop(i)
+                        if exponents == 0: #########
+                            tokenes[i][0] = left / right
+                            tokenes[i][1] = "number"
+                            tokenes.pop(i-1), tokenes.pop(i)
+                        else: i += 1
                     case "+":
                         if multiplicatives == 0:
                             tokenes[i][0] = left + right
